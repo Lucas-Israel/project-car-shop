@@ -37,4 +37,35 @@ describe('Testando camada service da rota cars', function () {
 
     sinon.restore();
   });
+
+  it('02 - Lista todos os carros com sucesso', async function () {
+    const carResolution = [{
+      id: '63eaa703ae576a7db2c1631d',
+      model: 'Mareass',
+      year: 2002,
+      color: 'Black',
+      status: false,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+    },
+    {
+      id: '63eaa703ae576a7db2c1631d',
+      model: 'Mareass',
+      year: 2002,
+      color: 'Black',
+      status: false,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+    }];
+
+    sinon.stub(Model, 'find').resolves(carResolution);
+
+    const service = new CarService();
+
+    const result = await service.findAll();
+
+    expect(result).to.be.deep.equal(carResolution);
+  });
 });
