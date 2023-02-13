@@ -7,33 +7,34 @@ import CarService from '../../../src/Services/Car.service';
 
 describe('Testando camada service da rota cars', function () {
   it('01 - Cria um carro com sucesso', async function () {
-    const carInput: ICar = {
-      model: 'Marea',
+    const carToSend: ICar = {
+      model: 'Mareass',
       year: 2002,
       color: 'Black',
-      status: true,
       buyValue: 15.990,
       doorsQty: 4,
       seatsQty: 5,
     };
 
-    const carOutput: Car = new Car({
-      id: '6348513f34c397abcad040b2',
-      model: 'Marea',
+    const carResolution: Car = new Car({
+      id: '63eaa703ae576a7db2c1631d',
+      model: 'AAAA',
       year: 2002,
       color: 'Black',
-      status: true,
-      buyValue: 15.990,
+      status: false,
+      buyValue: 15.99,
       doorsQty: 4,
       seatsQty: 5,
     });
 
-    sinon.stub(Model, 'create').resolves(carOutput);
+    sinon.stub(Model, 'create').resolves(carResolution);
 
     const service = new CarService();
+    
+    const result = await service.createCar(carToSend);
 
-    const result = await service.createCar(carInput);
+    expect(result).to.be.deep.equal(carResolution);
 
-    expect(result).to.be.deep.equal(carOutput);
+    sinon.restore();
   });
 });
