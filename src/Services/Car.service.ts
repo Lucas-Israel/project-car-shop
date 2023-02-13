@@ -25,4 +25,12 @@ export default class CarService {
 
     return result.map((car) => this.createCarDomain(car));
   }
+
+  public async findById(id: string) {
+    const carODM = new CarODM();
+
+    const result = await carODM.findById(id);
+
+    return result;
+  }
 }

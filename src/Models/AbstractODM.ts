@@ -24,7 +24,7 @@ export default abstract class AbstractODM<T> {
     return this.model.find();
   }
 
-  public async findOne(id: string) : Promise<T | null> {
+  public async findById(id: string) : Promise<T | null> {
     return this.model.findById({ id });
   }
 }
