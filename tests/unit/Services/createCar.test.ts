@@ -3,6 +3,7 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
 import CarDomain from '../../../src/Domains/CarDomain';
+import CarService from '../../../src/Services/Car.service';
 
 describe('Testando camada service da rota cars', function () {
   it('Cria um carro com sucesso', async function () {
