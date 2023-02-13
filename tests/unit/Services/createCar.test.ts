@@ -71,7 +71,7 @@ describe('Unit tests for car.service', function () {
 
   it('03 - Lists one car with the method findById', async function () {
     const carResolution = {
-      _id: '63eab0d5433c7012ae17b278',
+      id: '63eabd97c13fab94e4583236',
       model: 'Mareass',
       year: 2002,
       color: 'Black',
@@ -79,14 +79,13 @@ describe('Unit tests for car.service', function () {
       buyValue: 15.99,
       doorsQty: 4,
       seatsQty: 5,
-      __v: 0,
     };
 
     sinon.stub(Model, 'findById').resolves(carResolution);
 
     const service = new CarService();
 
-    const result = await service.findById(carResolution._id);
+    const result = await service.findById(carResolution.id);
 
     expect(result).to.be.deep.equal(carResolution);
   });
