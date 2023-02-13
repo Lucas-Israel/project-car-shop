@@ -31,6 +31,6 @@ export default class CarService {
 
     const result = await carODM.findById(id);
 
-    return result;
+    return this.createCarDomain(result);
   }
 }

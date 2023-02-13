@@ -3,6 +3,7 @@ import {
   models,
   Schema,
   model,
+  isValidObjectId,
 } from 'mongoose';
 
 export default abstract class AbstractODM<T> {
@@ -25,6 +26,7 @@ export default abstract class AbstractODM<T> {
   }
 
   public async findById(id: string) : Promise<T | null> {
+    if (!isValidObjectId(id)) throw Error('Invalid Mongo id');
     return this.model.findById(id);
   }
 }
