@@ -23,6 +23,6 @@ export default class CarService {
 
     const result = await carODM.findAll();
 
-    return this.createCarDomain(result);
+    return result.map((car) => this.createCarDomain(car));
   }
 }
