@@ -43,6 +43,7 @@ export default class CarController {
     const { id } = this.req.params;
     try {
       const carByID = await this.service.findById(id);
+      if (!carByID) return this.res.status(404).json({ message: 'Car not found' });
       return this.res.status(200).json(carByID);
     } catch (error) {
       return this.next(error);
