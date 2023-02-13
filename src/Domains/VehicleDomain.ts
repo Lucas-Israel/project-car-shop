@@ -1,6 +1,6 @@
 export default class VehicleDomain {
   constructor(
-    private id: string,
+    private id: string | undefined,
     private model: string,
     private year: number,
     private color: string,
