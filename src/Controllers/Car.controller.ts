@@ -24,7 +24,7 @@ export default class CarController {
 
     try {
       const newCar = await this.service.createCar(car);
-      return this.res.status(200).json(newCar);
+      return this.res.status(201).json(newCar);
     } catch (error) {
       return this.next(error);
     }

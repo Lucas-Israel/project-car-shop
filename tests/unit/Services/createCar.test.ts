@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
-import CarDomain from '../../../src/Domains/CarDomain';
+import Car from '../../../src/Domains/Car';
 import CarService from '../../../src/Services/Car.service';
 
 describe('Testando camada service da rota cars', function () {
@@ -17,7 +17,7 @@ describe('Testando camada service da rota cars', function () {
       seatsQty: 5,
     };
 
-    const carOutput: CarDomain = new CarDomain({
+    const carOutput: Car = new Car({
       id: '6348513f34c397abcad040b2',
       model: 'Marea',
       year: 2002,

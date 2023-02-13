@@ -1,11 +1,11 @@
 export default class VehicleDomain {
   constructor(
-    private id: string | undefined,
-    private model: string,
-    private year: number,
-    private color: string,
-    private status: boolean | undefined,
-    private buyValue: number, 
+    protected id: string | undefined,
+    protected model: string,
+    protected year: number,
+    protected color: string,
+    protected status: boolean | undefined,
+    protected buyValue: number, 
   ) {}
 
   public setId(id: string) {

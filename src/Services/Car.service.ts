@@ -1,11 +1,11 @@
-import CarDomain from '../Domains/CarDomain';
+import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
 
 export default class CarService {
-  private createCarDomain(car: ICar | null): CarDomain | null {
+  private createCarDomain(car: ICar | null): Car | null {
     if (car) {
-      return new CarDomain(car);
+      return new Car(car);
     }
     return null;
   }
