@@ -28,4 +28,12 @@ export default class MotorcycleService {
     if (!result) return;
     return VehicleFactory.create(result);
   }
+
+  public async deleteById(id: string) {
+    const result = await new MotorcycleODM().deleteById(id);
+
+    if (!result) return;
+    
+    return VehicleFactory.create(result);
+  }
 }

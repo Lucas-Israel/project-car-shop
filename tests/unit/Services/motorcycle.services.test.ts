@@ -179,4 +179,35 @@ describe('Unit tests for motorcycle.service', function () {
 
     expect(result).to.be.deep.equal(undefined);
   });
+
+  it('07 - Deletes a motorcycle based on its ID with method deleteById', async function () {
+    const toResolve = {
+      id: '63ec0a91b9fa94a03908cdfd',
+      model: 'Honda Cb 600f Hornetg',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+    
+    sinon.stub(Model, 'findOneAndDelete').resolves(toResolve);
+
+    const service = new MotorcycleService();
+
+    const result = await service.deleteById('63ec0a91b9fa94a03908cdfd');
+
+    expect(result).to.be.deep.equal(toResolve);
+  });
+
+  it('08 - Does not find a motorcycle based on its ID with method deleteById', async function () {
+    sinon.stub(Model, 'findOneAndDelete').resolves();
+
+    const service = new MotorcycleService();
+
+    const result = await service.deleteById('63ec0a91b9fa94a03908cdfd');
+
+    expect(result).to.be.deep.equal(undefined);
+  });
 });
