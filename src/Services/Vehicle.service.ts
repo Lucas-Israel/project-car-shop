@@ -6,7 +6,7 @@ import VehicleFactoryTypes from '../types/FactoryVehiclesTypes';
 import MotorcycleODM from '../Models/MotorcycleODM';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 
-export default class CarService {
+export default class VehicleService {
   private createCarDomain(car: ICar | null): Car | null {
     if (car) {
       return new Car(car);
@@ -14,28 +14,27 @@ export default class CarService {
     return null;
   }
 
-  public async createCar(vehicle: VehicleFactoryTypes) {
-    // const carODM = new CarODM();
+  public async createVehicle(vehicle: VehicleFactoryTypes) {
+    if ('engineCapacity' in vehicle) {
+      const result = await new MotorcycleODM().create(vehicle as IMotorcycle);
 
-    // const result = await carODM.create(vehicle);
+      return VehicleFactory.create(result);
+    }
 
-    let result;
+    const result = await new CarODM().create(vehicle as ICar);
 
-    const test = Object.keys(vehicle as VehicleFactory).includes('seatsQty');
-
-    if (!test) {
-      result = await new MotorcycleODM().create(vehicle as IMotorcycle);
-    } else { result = await new CarODM().create(vehicle as ICar); }
-    
     return VehicleFactory.create(result);
   }
 
-  public async findAll() {
-    const carODM = new CarODM();
+  public async findAll(path: string) {
+    if (path === '/motorcycles') {
+      const result = await new MotorcycleODM().findAll();
+      return result.map((moto) => VehicleFactory.create(moto));
+    }
 
-    const result = await carODM.findAll();
+    const result = await new CarODM().findAll();
 
-    return result.map((car) => this.createCarDomain(car));
+    return result.map((car) => VehicleFactory.create(car));
   }
 
   public async findById(id: string) {

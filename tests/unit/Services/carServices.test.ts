@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
 import Car from '../../../src/Domains/Car';
-import CarService from '../../../src/Services/Car.service';
+import CarService from '../../../src/Services/Vehicle.service';
 
 describe('Unit tests for car.service', function () {
   it('01 - Creates a new car with the method createCar', async function () {

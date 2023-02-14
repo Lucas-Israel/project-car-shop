@@ -1,20 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
 import { isValidObjectId } from 'mongoose';
 import ICar from '../Interfaces/ICar';
-import CarService from '../Services/Car.service';
+import VehicleService from '../Services/Vehicle.service';
 import VehicleFactoryTypes from '../types/FactoryVehiclesTypes';
 
-export default class CarController {
+export default class VehicleController {
   constructor(
     private req: Request,
     private res: Response,
     private next: NextFunction,
-    private service: CarService = new CarService(),
+    private service: VehicleService = new VehicleService(),
   ) {}
 
   public async create() {
     try {
-      const newVehicle = await this.service.createCar(this.req.body as VehicleFactoryTypes);
+      const newVehicle = await this.service.createVehicle(this.req.body as VehicleFactoryTypes);
       return this.res.status(201).json(newVehicle);
     } catch (error) {
       return this.next(error);
@@ -23,7 +23,7 @@ export default class CarController {
 
   public async findAll() {
     try {
-      const carList = await this.service.findAll();
+      const carList = await this.service.findAll(this.req.path);
       return this.res.status(200).json(carList);
     } catch (error) {
       return this.next(error);
