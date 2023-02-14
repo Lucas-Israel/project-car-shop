@@ -45,16 +45,19 @@ export default class VehicleService {
     }
 
     const result = await new CarODM().findById(id);
-    
+
     if (!result) return result;
 
     return VehicleFactory.create(result);
   }
 
-  public async update(id: string, obj: ICar) {
-    const vehicleODM = new CarODM();
-
-    const result = await vehicleODM.update(id, obj);
+  public async update(id: string, obj: VehicleFactoryTypes) {
+    if ('engineCapacity' in obj) {
+      const result = await new MotorcycleODM().update(id, obj);
+      if (!result) return; 
+      return VehicleFactory.create(result);
+    }
+    const result = await new CarODM().update(id, obj);
 
     return this.createCarDomain(result);
   }

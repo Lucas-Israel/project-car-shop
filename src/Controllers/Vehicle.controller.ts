@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { isValidObjectId } from 'mongoose';
-import ICar from '../Interfaces/ICar';
 import VehicleService from '../Services/Vehicle.service';
 import VehicleFactoryTypes from '../types/FactoryVehiclesTypes';
 
@@ -53,10 +52,12 @@ export default class VehicleController {
 
   public async update() {
     const { id } = this.req.params;
+    const path = this.pathToNameForMessage(this.req.path);
+    const notFoundMessage = `${path} not found`;
     try {
       if (!isValidObjectId(id)) this.res.status(422).json({ message: 'Invalid mongo id' });
-      const vehicleUpdate = await this.service.update(id, this.req.body as ICar);
-      if (!vehicleUpdate) return this.res.status(404).json({ message: 'Car not found' });
+      const vehicleUpdate = await this.service.update(id, this.req.body as VehicleFactoryTypes);
+      if (!vehicleUpdate) return this.res.status(404).json({ message: notFoundMessage });
       return this.res.status(200).json(vehicleUpdate);
     } catch (error) {
       return this.next(error);
