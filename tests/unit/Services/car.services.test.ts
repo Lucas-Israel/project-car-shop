@@ -164,4 +164,14 @@ describe('Unit tests for car.service', function () {
 
     expect(result).to.be.deep.equal(undefined);
   });
+
+  it('07 - Deletes a car based on its ID with method deleteById', async function () {
+    sinon.stub(Model, 'findOneAndDelete');
+
+    const service = new CarService();
+
+    const result = await service.deleteById('634852326b35b59438fbea2f');
+
+    expect(result).to.be.deep.equal('TBA');
+  });
 });

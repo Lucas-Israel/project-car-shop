@@ -1,15 +1,7 @@
 import { expect } from 'chai';
-// import sinon from 'sinon';
-// import { Model } from 'mongoose';
-// import ICar from '../../../src/Interfaces/ICar';
-// import Car from '../../../src/Domains/Car';
 import CarService from '../../../src/Services/car.service';
 
 describe('Unit tests for abstractODM', function () {
-  // afterEach(function () {
-  //   sinon.restore();
-  // });
-
   it('01 - Testing exception for using an invalid mongodb id on findById', async function () {
     try {
       const service = new CarService();

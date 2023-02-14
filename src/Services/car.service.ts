@@ -28,4 +28,10 @@ export default class CarService {
     if (!result) return;
     return VehicleFactory.create(result);
   }
+
+  public async deleteById(id: string) {
+    const result = await new CarODM().deleteById(id);
+
+    return result;
+  }
 }

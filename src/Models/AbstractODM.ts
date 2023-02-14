@@ -7,6 +7,8 @@ import {
   UpdateQuery,
 } from 'mongoose';
 
+const errorMsg = 'Invalid Mongo id';
+
 export default abstract class AbstractODM<T> {
   protected model: Model<T>;
   protected schema: Schema;
@@ -27,16 +29,21 @@ export default abstract class AbstractODM<T> {
   }
 
   public async findById(id: string): Promise<T | null> {
-    if (!isValidObjectId(id)) throw Error('Invalid Mongo id');
+    if (!isValidObjectId(id)) throw Error(errorMsg);
     return this.model.findById(id);
   }
 
   public async update(_id: string, obj: Partial<T>): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error('Invalid Mongo id');
+    if (!isValidObjectId(_id)) throw Error(errorMsg);
     return this.model.findByIdAndUpdate(
       { _id },
       { ...obj } as UpdateQuery<T>,
       { new: true },
     );
+  }
+
+  public async deleteById(_id: string): Promise<T | null> {
+    if (!isValidObjectId(_id)) throw Error(errorMsg);
+    return this.model.findOneAndDelete({ _id });
   }
 }
