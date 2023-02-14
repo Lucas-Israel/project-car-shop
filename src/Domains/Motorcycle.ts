@@ -1,5 +1,5 @@
 import IMotorcycle from '../Interfaces/IMotorcycle';
-import VehicleDomain from './VehicleDomain';
+import VehicleDomain from './Vehicle';
 
 export default class MotorcycleDomain extends VehicleDomain {
   private category: string;

@@ -1,5 +1,5 @@
 import ICar from '../Interfaces/ICar';
-import VehicleDomain from './VehicleDomain';
+import VehicleDomain from './Vehicle';
 
 export default class CarDomain extends VehicleDomain {
   private doorsQty: number;
