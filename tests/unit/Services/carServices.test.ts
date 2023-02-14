@@ -112,11 +112,11 @@ describe('Unit tests for car.service', function () {
       seatsQty: 5,
     };
 
-    sinon.stub(Model, 'update').resolves(carResolution);
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(carResolution);
 
     const service = new CarService();
 
-    const result = await service.update(carBodyToSend);
+    const result = await service.update(carResolution.id, carBodyToSend);
 
     expect(result).to.be.deep.equal(carResolution);
   });
