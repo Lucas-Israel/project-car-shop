@@ -1,4 +1,3 @@
-import Car from '../Domains/Car';
 import ICar from '../Interfaces/ICar';
 import CarODM from '../Models/CarODM';
 import VehicleFactory from '../Domains/VehicleFactory';
@@ -7,13 +6,6 @@ import MotorcycleODM from '../Models/MotorcycleODM';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 
 export default class VehicleService {
-  private createCarDomain(car: ICar | null): Car | null {
-    if (car) {
-      return new Car(car);
-    }
-    return null;
-  }
-
   public async createVehicle(vehicle: VehicleFactoryTypes) {
     if ('engineCapacity' in vehicle) {
       const result = await new MotorcycleODM().create(vehicle as IMotorcycle);
@@ -54,11 +46,11 @@ export default class VehicleService {
   public async update(id: string, obj: VehicleFactoryTypes) {
     if ('engineCapacity' in obj) {
       const result = await new MotorcycleODM().update(id, obj);
-      if (!result) return; 
+      if (!result) return;
       return VehicleFactory.create(result);
     }
     const result = await new CarODM().update(id, obj);
-
-    return this.createCarDomain(result);
+    if (!result) return;
+    return VehicleFactory.create(result);
   }
 }

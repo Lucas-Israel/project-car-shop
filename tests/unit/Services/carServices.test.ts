@@ -8,6 +8,10 @@ import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
 import Motorcycle from '../../../src/Domains/Motorcycle';
 
 describe('Unit tests for vehicle.service', function () {
+  afterEach(function () {
+    sinon.restore();
+  });
+
   it('01 - Creates a new car with the method createVehicle', async function () {
     const carToSend: ICar = {
       model: 'Mareass',
@@ -36,8 +40,6 @@ describe('Unit tests for vehicle.service', function () {
     const result = await service.createVehicle(carToSend);
 
     expect(result).to.be.deep.equal(carResolution);
-
-    sinon.restore();
   });
 
   it('02 - Lists all cars with the method findAll', async function () {
@@ -182,7 +184,7 @@ describe('Unit tests for vehicle.service', function () {
 
     const service = new VehicleService();
 
-    const result = await service.findAll('/cars');
+    const result = await service.findAll('/motorcycles');
 
     expect(result).to.be.deep.equal(motorcycleResolution);
   });
@@ -204,7 +206,7 @@ describe('Unit tests for vehicle.service', function () {
     const service = new VehicleService();
 
     const result = await service
-      .findById(motorcycleResolution.id, '/cars/63ebe7a9646e78d29334375f');
+      .findById(motorcycleResolution.id, 'Motorcycle');
 
     expect(result).to.be.deep.equal(motorcycleResolution);
   });
