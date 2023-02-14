@@ -89,4 +89,35 @@ describe('Unit tests for car.service', function () {
 
     expect(result).to.be.deep.equal(carResolution);
   });
+
+  it('04 - Updates one car with the method updateVehicle', async function () {
+    const carBodyToSend = {
+      model: 'Marea',
+      year: 1992,
+      color: 'Red',
+      status: true,
+      buyValue: 12.000,
+      doorsQty: 2,
+      seatsQty: 5,
+    };
+
+    const carResolution = {
+      id: '634852326b35b59438fbea2f',
+      model: 'Marea',
+      year: 1992,
+      color: 'Red',
+      status: true,
+      buyValue: 12.000,
+      doorsQty: 2,
+      seatsQty: 5,
+    };
+
+    sinon.stub(Model, 'update').resolves(carResolution);
+
+    const service = new CarService();
+
+    const result = await service.update(carBodyToSend);
+
+    expect(result).to.be.deep.equal(carResolution);
+  });
 });
