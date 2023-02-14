@@ -3,10 +3,12 @@ import sinon from 'sinon';
 import { Model } from 'mongoose';
 import ICar from '../../../src/Interfaces/ICar';
 import Car from '../../../src/Domains/Car';
-import CarService from '../../../src/Services/Vehicle.service';
+import VehicleService from '../../../src/Services/Vehicle.service';
+import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
+import Motorcycle from '../../../src/Domains/Motorcycle';
 
-describe('Unit tests for car.service', function () {
-  it('01 - Creates a new car with the method createCar', async function () {
+describe('Unit tests for vehicle.service', function () {
+  it('01 - Creates a new car with the method createVehicle', async function () {
     const carToSend: ICar = {
       model: 'Mareass',
       year: 2002,
@@ -29,9 +31,9 @@ describe('Unit tests for car.service', function () {
 
     sinon.stub(Model, 'create').resolves(carResolution);
 
-    const service = new CarService();
+    const service = new VehicleService();
     
-    const result = await service.createCar(carToSend);
+    const result = await service.createVehicle(carToSend);
 
     expect(result).to.be.deep.equal(carResolution);
 
@@ -62,9 +64,9 @@ describe('Unit tests for car.service', function () {
 
     sinon.stub(Model, 'find').resolves(carResolution);
 
-    const service = new CarService();
+    const service = new VehicleService();
 
-    const result = await service.findAll();
+    const result = await service.findAll('/cars');
 
     expect(result).to.be.deep.equal(carResolution);
   });
@@ -83,9 +85,9 @@ describe('Unit tests for car.service', function () {
 
     sinon.stub(Model, 'findById').resolves(carResolution);
 
-    const service = new CarService();
+    const service = new VehicleService();
 
-    const result = await service.findById(carResolution.id);
+    const result = await service.findById(carResolution.id, '/cars/63ebe7a9646e78d29334375f');
 
     expect(result).to.be.deep.equal(carResolution);
   });
@@ -114,10 +116,127 @@ describe('Unit tests for car.service', function () {
 
     sinon.stub(Model, 'findByIdAndUpdate').resolves(carResolution);
 
-    const service = new CarService();
+    const service = new VehicleService();
 
     const result = await service.update(carResolution.id, carBodyToSend);
 
     expect(result).to.be.deep.equal(carResolution);
+  });
+
+  it('05 - Creates a new motorcycle with the method createVehicle', async function () {
+    const motorcycleToSend: IMotorcycle = {
+      model: 'Honda Cb 600f Horn',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+
+    const motorcycleResolution: Motorcycle = new Motorcycle({
+      id: '63ebe9e6646e78d29334376',
+      model: 'Honda Cb 600f Horn',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    });
+
+    sinon.stub(Model, 'create').resolves(motorcycleResolution);
+
+    const service = new VehicleService();
+    
+    const result = await service.createVehicle(motorcycleToSend);
+
+    expect(result).to.be.deep.equal(motorcycleResolution);
+
+    sinon.restore();
+  });
+
+  it('06 - Lists all cars with the method findAll', async function () {
+    const motorcycleResolution = [{
+      id: '63ebe9e6646e78d29334376',
+      model: 'Honda Cb 600f Hornets',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    },
+    {
+      id: '63ebe9e6646e78d29334376',
+      model: 'Honda Cb 600f Hornets',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    }];
+
+    sinon.stub(Model, 'find').resolves(motorcycleResolution);
+
+    const service = new VehicleService();
+
+    const result = await service.findAll('/cars');
+
+    expect(result).to.be.deep.equal(motorcycleResolution);
+  });
+
+  it('07 - Lists one car with the method findById', async function () {
+    const motorcycleResolution = {
+      id: '63ebe9e6646e78d29334376',
+      model: 'Honda Cb 600f Horneta',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+
+    sinon.stub(Model, 'findById').resolves(motorcycleResolution);
+
+    const service = new VehicleService();
+
+    const result = await service
+      .findById(motorcycleResolution.id, '/cars/63ebe7a9646e78d29334375f');
+
+    expect(result).to.be.deep.equal(motorcycleResolution);
+  });
+
+  it('08 - Updates one car with the method updateVehicle', async function () {
+    const vehicleToSend = {
+      model: 'Honda Cb 600f Hornet',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+
+    const motorcycleResolution = {
+      id: '63ebe9e6646e78d29334376',
+      model: 'Honda Cb 600f Hornet',
+      year: 2005,
+      color: 'Yellow',
+      status: true,
+      buyValue: 30.000,
+      category: 'Street',
+      engineCapacity: 600,
+    };
+
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(motorcycleResolution);
+
+    const service = new VehicleService();
+
+    const result = await service.update(motorcycleResolution.id, vehicleToSend);
+
+    expect(result).to.be.deep.equal(motorcycleResolution);
   });
 });
