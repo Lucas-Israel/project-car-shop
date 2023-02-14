@@ -32,6 +32,8 @@ export default class CarService {
   public async deleteById(id: string) {
     const result = await new CarODM().deleteById(id);
 
-    return result;
+    if (!result) return;
+    
+    return VehicleFactory.create(result);
   }
 }

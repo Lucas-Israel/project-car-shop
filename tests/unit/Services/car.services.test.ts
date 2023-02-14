@@ -166,12 +166,33 @@ describe('Unit tests for car.service', function () {
   });
 
   it('07 - Deletes a car based on its ID with method deleteById', async function () {
-    sinon.stub(Model, 'findOneAndDelete');
+    const toResolve = {
+      id: '63ec06453bcc480afb3a6e62',
+      model: 'Marea',
+      year: 2002,
+      color: 'Black',
+      status: true,
+      buyValue: 15.99,
+      doorsQty: 4,
+      seatsQty: 5,
+    };
+    
+    sinon.stub(Model, 'findOneAndDelete').resolves(toResolve);
 
     const service = new CarService();
 
-    const result = await service.deleteById('634852326b35b59438fbea2f');
+    const result = await service.deleteById('63ec06453bcc480afb3a6e62');
 
-    expect(result).to.be.deep.equal('TBA');
+    expect(result).to.be.deep.equal(toResolve);
+  });
+
+  it('08 - Does not find a car based on its ID with method deleteById', async function () {
+    sinon.stub(Model, 'findOneAndDelete').resolves();
+
+    const service = new CarService();
+
+    const result = await service.deleteById('63ec06453bcc480afb3a6e62');
+
+    expect(result).to.be.deep.equal(undefined);
   });
 });
