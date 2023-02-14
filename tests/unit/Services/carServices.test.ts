@@ -156,7 +156,7 @@ describe('Unit tests for vehicle.service', function () {
     sinon.restore();
   });
 
-  it('06 - Lists all cars with the method findAll', async function () {
+  it('06 - Lists all motorCycles with the method findAll', async function () {
     const motorcycleResolution = [{
       id: '63ebe9e6646e78d29334376',
       model: 'Honda Cb 600f Hornets',
@@ -187,9 +187,9 @@ describe('Unit tests for vehicle.service', function () {
     expect(result).to.be.deep.equal(motorcycleResolution);
   });
 
-  it('07 - Lists one car with the method findById', async function () {
+  it('07 - Lists one motorcyle with the method findById', async function () {
     const motorcycleResolution = {
-      id: '63ebe9e6646e78d29334376',
+      id: '63ebec25c350ae88b51a0d07',
       model: 'Honda Cb 600f Horneta',
       year: 2005,
       color: 'Yellow',
@@ -209,7 +209,7 @@ describe('Unit tests for vehicle.service', function () {
     expect(result).to.be.deep.equal(motorcycleResolution);
   });
 
-  it('08 - Updates one car with the method updateVehicle', async function () {
+  it('08 - Updates one motorcycle with the method updateVehicle', async function () {
     const vehicleToSend = {
       model: 'Honda Cb 600f Hornet',
       year: 2005,
@@ -221,7 +221,7 @@ describe('Unit tests for vehicle.service', function () {
     };
 
     const motorcycleResolution = {
-      id: '63ebe9e6646e78d29334376',
+      id: '63ebec25c350ae88b51a0d07',
       model: 'Honda Cb 600f Hornet',
       year: 2005,
       color: 'Yellow',
