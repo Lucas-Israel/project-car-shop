@@ -56,7 +56,7 @@ export default class CarController {
     const { id } = this.req.params;
     try {
       if (!isValidObjectId(id)) this.res.status(422).json({ message: 'Invalid mongo id' });
-      const vehicleUpdate = await this.service.update(id);
+      const vehicleUpdate = await this.service.update(id, this.req.body as ICar);
       if (!vehicleUpdate) return this.res.status(404).json({ message: 'Car not found' });
       return this.res.status(200).json(vehicleUpdate);
     } catch (error) {
