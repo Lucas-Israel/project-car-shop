@@ -21,10 +21,11 @@ export default class CarService {
 
     let result;
 
-    if (vehicle as ICar) result = await new CarODM().create(vehicle as ICar);
-    if (vehicle as IMotorcycle) {
+    const test = Object.keys(vehicle as VehicleFactory).includes('seatsQty');
+
+    if (!test) {
       result = await new MotorcycleODM().create(vehicle as IMotorcycle);
-    }
+    } else { result = await new CarODM().create(vehicle as ICar); }
     
     return VehicleFactory.create(result);
   }

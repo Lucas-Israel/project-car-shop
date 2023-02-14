@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { isValidObjectId } from 'mongoose';
 import ICar from '../Interfaces/ICar';
 import CarService from '../Services/Car.service';
+import VehicleFactoryTypes from '../types/FactoryVehiclesTypes';
 
 export default class CarController {
   constructor(
@@ -12,20 +13,9 @@ export default class CarController {
   ) {}
 
   public async create() {
-    const { buyValue, color, doorsQty, model, seatsQty, status, year } = this.req.body as ICar;
-    const car: ICar = {
-      buyValue,
-      color,
-      doorsQty,
-      model,
-      seatsQty,
-      status,
-      year,
-    } as ICar;
-
     try {
-      const newCar = await this.service.createCar(car);
-      return this.res.status(201).json(newCar);
+      const newVehicle = await this.service.createCar(this.req.body as VehicleFactoryTypes);
+      return this.res.status(201).json(newVehicle);
     } catch (error) {
       return this.next(error);
     }
