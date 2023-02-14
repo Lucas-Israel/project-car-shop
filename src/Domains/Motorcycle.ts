@@ -26,19 +26,19 @@ export default class MotorcycleDomain extends VehicleDomain {
     this.engineCapacity = engineCapacity;
   }
 
-  public setcategory(category: string) {
+  public setCategory(category: string) {
     this.category = category;
   }
 
-  public getcategory() {
+  public getCategory() {
     return this.category;
   }
 
-  public setengineCapacity(engineCapacity: number) {
+  public setEngineCapacity(engineCapacity: number) {
     this.engineCapacity = engineCapacity;
   }
 
-  public getengineCapacity() {
+  public getEngineCapacity() {
     return this.engineCapacity;
   }
 }
