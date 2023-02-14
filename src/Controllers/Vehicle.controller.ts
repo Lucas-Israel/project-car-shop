@@ -30,13 +30,22 @@ export default class VehicleController {
     }
   }
 
+  private pathToNameForMessage(pathName: string) {
+    const removingSlashAndID = pathName.replace(/\/\w+$/, '').replace('/', '');
+    const removingLastChar = removingSlashAndID.substring(0, removingSlashAndID.length - 1);
+    const result = removingLastChar.charAt(0).toUpperCase() + removingLastChar.slice(1);
+    return result;
+  }
+
   public async findById() {
     const { id } = this.req.params;
+    const path = this.pathToNameForMessage(this.req.path);
+    const notFoundMessage = `${path} not found`;
     try {
       if (!isValidObjectId(id)) this.res.status(422).json({ message: 'Invalid mongo id' });
-      const carByID = await this.service.findById(id);
-      if (!carByID) return this.res.status(404).json({ message: 'Car not found' });
-      return this.res.status(200).json(carByID);
+      const vehicleById = await this.service.findById(id, path);
+      if (!vehicleById) return this.res.status(404).json({ message: notFoundMessage });
+      return this.res.status(200).json(vehicleById);
     } catch (error) {
       return this.next(error);
     }

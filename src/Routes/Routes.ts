@@ -11,7 +11,7 @@ routes.post(
 );
 
 routes.get(
-  '/cars/:id',
+  ['/cars/:id', '/motorcycles/:id'],
   (req, res, next) => new VehicleController(req, res, next).findById(),
 );
 
@@ -21,7 +21,7 @@ routes.get(
 );
 
 routes.put(
-  '/cars/:id',
+  ['/cars/:id', '/motorcycles/:id'],
   (req, res, next) => new VehicleController(req, res, next).update(),
 );
 

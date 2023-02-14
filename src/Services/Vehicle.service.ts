@@ -37,12 +37,18 @@ export default class VehicleService {
     return result.map((car) => VehicleFactory.create(car));
   }
 
-  public async findById(id: string) {
-    const carODM = new CarODM();
+  public async findById(id: string, path: string) {
+    if (path === 'Motorcycle') {
+      const result = await new MotorcycleODM().findById(id);
+      if (!result) return result;
+      return VehicleFactory.create(result);
+    }
 
-    const result = await carODM.findById(id);
+    const result = await new CarODM().findById(id);
+    
+    if (!result) return result;
 
-    return this.createCarDomain(result);
+    return VehicleFactory.create(result);
   }
 
   public async update(id: string, obj: ICar) {
